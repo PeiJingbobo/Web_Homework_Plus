@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>九九乘法表
+    </title>
+
+    <style>
+        *{
+            /* 清除默认边距 */
+            padding: 0;
+            margin: 0;
+        }
+
+        body{
+            /* 设置一个顶部内边距和背景颜色 */
+            padding-top: 150px;
+            background-color: #223344;
+        }
+
+        .table{
+
+            /* 表格的样式 */
+
+            margin: 0 auto;
+
+            height: auto;
+            width: max-content;
+
+            text-align: center;
+
+            /* 这个属性可以将相邻的边距合并 */
+            border-collapse: collapse;  
+
+            /* 设置为块元素方便定位 */
+            display: block;
+        }
+        /* 行 */
+
+        .tr{
+            /* overflow 为了清除浮动带来的影响 */
+            overflow: hidden;
+
+            /* 设为块元素方便定位 */
+            display: block;
+
+            height: auto;
+            /* 宽度为所有元素宽度的和 */
+            width: max-content;
+
+        }
+
+        /* 列 */
+        .td{
+
+
+            /* 设置一个边距 */
+            margin: 10px 10px;
+            /* 设置边框 */
+            border: 1px solid #00AAAA;
+            /* 将边框设为向内 */
+            box-sizing:border-box;
+            /* 设置宽高 */
+            width: 100px;
+            height: 50px;
+
+            /* 设为块元素方便定位 */
+            display: block;
+            /* 浮动左对齐 */
+            float: left;
+
+            /* 添加圆角 */
+            border-radius: 25px;
+            /* 设置高度 */
+            line-height: 50px;
+            /* 设置字体颜色 */
+            color: #00AAAA;
+
+            /* 设置动画属性 */
+            transition: all 0.5s;
+        }
+        /* 鼠标经过动画 */
+        .td:hover{
+            color: #ffffff;
+            background-color: #00AAAA;
+            /* 十六进制最后两位表示透明度 */
+            box-shadow: 0 0 5px #00AAAA99;
+        }
+
+        /* 跟随鼠标浮动的盒子 */
+        .showBox{
+            /* 设置文档绝对定位 */
+            position:absolute;
+            /* 设置宽高 */
+            width: 200px;
+            height: 100px;
+
+            /* 圆角 */
+            border-radius: 50px;
+            /* 设置背景色 */
+            background-color: #ffffff;
+
+            /* 默认透明度 0 - 1 */
+            opacity: 0;
+            /* 文字居中 */
+            text-align: center;
+            /* 行高 为了垂直居中 */
+            line-height: 100px;
+            /* 字体大小 */
+            font-size: 25px;
+            /* 设置加粗 */
+            font-weight: bolder;
+
+            /* 动画设置 */
+            transition: all 0.5s; 
+
+            /* 默认隐藏 */
+            visibility: hidden;
+            /* 设置投影 */
+            box-shadow: 0 0 5px #ffffffAA;
+
+        }
+
+        /* 气泡下面的三角 */
+
+        /* 这个伪类可以在元素内部的最后追加元素,通过改变他的样式来添加三角形 */
+        .showBox::after{
+            /* 设为块元素 */
+            display: block;;
+            /* 设置内容为空也要设置不然不会出现 */
+            content: "";
+            /* 设置宽高 */
+            width: 25px;
+            height: 25px;
+            /* 设置定位 */
+            position: relative;
+            margin: 0 auto;
+            background-color: #ffffff;
+            /* 旋转之后右下角朝下 */
+            transform: rotate(45deg);
+
+            /* 默认是在盒子外面,给他定位到里面 */
+            top: -12.5px;
+        }
+
+        .footer{
+
+            /* 页脚 */
+            
+            font-size: 16px;
+            color: #ffffff;
+            margin-top: 50px;
+            text-align: center;
+            height: 100px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            line-height: 50px;
+
+        }
+
+    </style>
+    <script>
+
+        // 入口函数
+        window.onload = function(){
+            // 获取table标签节点
+            var table = document.getElementById("table");
+
+
+            // 众所周知,乘法表一定要用循环的方式进行输出,还得嵌套
+
+            // 输出行 
+            for(var i=1;i<=9;i++){
+
+                // 这一招叫做无中生有,造出一个节点追加到原来的节点上
+
+                // 构造一个新的节点 行
+                var new_tr = document.createElement("tr");
+                // 设置类属性
+                new_tr.className="tr";
+
+                // 设置id
+                new_tr.id= "tr"+i;
+
+                // 输出列
+
+                // 输出行,这个可以在循环下面添加,也可以在这里 
+                // 在这里添加可以结合定时器做出一个个随机弹出的效果 我没做 我试了,bug连天 ------- 嘤嘤嘤 --------
+                
+                table.appendChild(new_tr);
+
+                
+                for(var j=1;j<=i;j++){
+                    // 构造列
+                    var new_td = document.createElement("td");
+                    // 设置类名
+                    new_td.className = "td";
+                    // 设置id
+                    new_td.id = "td_" + i + "_"+j;
+                    // 输出内容
+                    new_td.innerText =  j+ " * " + i + " = " + i*j;
+                    // 将列添加到行
+                    new_tr.appendChild(new_td);
+
+
+                }
+                // 将行添加到表格
+            }
+
+            // 获取悬浮的那个气泡
+            var showBox = document.getElementById("showBox");
+
+            // 获取所有的列 td标签元素的数组
+            var tds = document.getElementsByClassName("td");
+
+            // 用循环的方式给这个数组的所有元素添加事件
+            for(var i=0;i<tds.length;i++){
+                // 获取其中的一个元素 td
+                var element = tds[i];
+
+
+                // 鼠标移动到元素上触发
+                element.onmouseenter = function(event){
+
+                    // 这里是为了获取tr在文档中的绝对位置,然后给气泡设上
+
+    //                                          // 这应该减去当前标签的宽度的一半 为了气泡和标签居中对齐
+                    var target_x = event.target.offsetLeft + event.target.offsetParent.offsetLeft;
+                    // 高度就使用这个tr标签的就好了
+                    var target_y = event.target.offsetTop;
+
+                    // 设置气泡的位置
+                    showBox.style.top = target_y + 50   + "px";
+                    showBox.style.left = target_x- 50  + "px";
+
+                    // 展示出来                    
+                    showBox.style.visibility = "visible";
+
+                    // 设置不透明
+                    showBox.style.opacity = 1;
+                    // 设置文本内容,要从事件的标签属性中取,不然全是最后一个元素的内容
+                    showBox.innerHTML = event.target.innerText;
+                }
+
+                // 鼠标移开元素
+                element.onmouseleave = function(event){
+                    // 设置透明
+                    showBox.style.opacity = 0;
+                    // 隐藏
+                    showBox.style.visibility = "hidden";
+
+                }   
+
+
+            }
+
+        };
+
+
+    </script>
+</head>
+<body>
+    <table id="table" class="table">
+        <!-- 这里是表格 -->
+    </table>
+
+    <div class="showBox" id="showBox">
+        <!-- 这里是气泡 -->
+
+    </div>
+    <div class="footer">
+        <p>©PeiJingbo 2020-4-11</p>
+    </div>
+</body>
+</html>
