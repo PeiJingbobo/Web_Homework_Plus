@@ -52,10 +52,9 @@
 
         }
 
+
         /* 列 */
         .td{
-
-
             /* 设置一个边距 */
             margin: 10px 10px;
             /* 设置边框 */
@@ -87,6 +86,17 @@
             background-color: #00AAAA;
             /* 十六进制最后两位表示透明度 */
             box-shadow: 0 0 5px #00AAAA99;
+        }
+    
+        /* 为了不丢失隔行改色的灵魂我们把双数的行改为紫色 */
+
+        .tr:nth-child(2n) .td{
+            color: #ffffff;
+            background-color: #660088;
+        }
+        .tr:nth-child(2n) .td:hover{
+            color: #ffffff;
+            background-color: #7700FF;
         }
 
         /* 跟随鼠标浮动的盒子 */
